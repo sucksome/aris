@@ -111,7 +111,7 @@ Item {
                         console.log("Invalid Operation : Can only reference to smaller line numbers")
                     else if (proofModel.data(proofModel.index(
                                                  listView.currentIndex, 0),
-                                             257) === "premise")
+                                             258) === "premise")
                         console.log("Invalid Operation: Current Line is a premise")
                     else if (proofModel.data(proofModel.index(
                                                  listView.currentIndex, 0),
