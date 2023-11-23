@@ -115,6 +115,11 @@ ToolBar {
         ToolButton {
             id: evalButton
 
+            Action {
+                shortcut: "Ctrl+Alt+R"
+                onTriggered: evalButton.clicked()
+            }
+
             icon {
                 source: "assets/eval.png"
                 height: (Qt.platform.os === "wasm") ? nullButton.height

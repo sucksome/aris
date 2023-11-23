@@ -198,6 +198,9 @@ Item {
                         } else if (last_two.includes('\\/')) {
                             theTextID.remove(cursorPosition - 2, cursorPosition)
                             theTextID.insert(cursorPosition, "\u2228")
+                        } else if (last_two.includes('~-')) {
+                            theTextID.remove(cursorPosition - 2, cursorPosition)
+                            theTextID.insert(cursorPosition, "\u00ac")
                         } else if (last_two.includes('->')) {
                             theTextID.remove(cursorPosition - 2, cursorPosition)
                             theTextID.insert(cursorPosition, "\u2192")
@@ -395,6 +398,8 @@ Item {
                     }
 
                     Action {
+                        shortcut: "Ctrl+Y"
+
                         text: "Add Premise"
                         onTriggered: {
                             var insertIndex = (index < premiseCount) ? index + 1 : premiseCount
@@ -409,6 +414,8 @@ Item {
                         }
                     }
                     Action {
+                        shortcut: "Ctrl+M"
+
                         text: "Add Conclusion"
                         enabled: index + 1 >= premiseCount
 
