@@ -398,7 +398,7 @@ Item {
                     }
 
                     Action {
-                        shortcut: "Ctrl+Y"
+                        shortcut: "Ctrl+Alt+P"
 
                         text: "Add Premise"
                         onTriggered: {
