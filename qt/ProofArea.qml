@@ -57,12 +57,30 @@ Item {
         }
     }
 
+    // Shortcut for Add Premise
+    Shortcut {
+        sequence: "Ctrl+Alt+P"
+        onActivated: {
+            addPremise(listView.currentIndex, listView)
+        }
+    }
+
+    // Shortcut for Add Conclusion
+    Shortcut {
+        sequence: "Ctrl+M"
+        onActivated: {
+            addConclusion(listView.currentIndex, listView,
+                          listView.currentItem.modell)
+        }
+    }
+
     Component {
         id: proofLineID
 
         RowLayout {
             id: root_delegate
 
+            property var modell: model // essential for Add Conclusion Shortcut to work
             property bool editCombos: (!isExtFile || type === "choose")
             property var arr: model.refs
             property string type: model.type
@@ -398,35 +416,18 @@ Item {
                     }
 
                     Action {
-                        shortcut: "Ctrl+Alt+P"
-
                         text: "Add Premise"
+
                         onTriggered: {
-                            var insertIndex = (index < premiseCount) ? index + 1 : premiseCount
-                            theData.insertLine(insertIndex, insertIndex + 1,
-                                               "", "premise", false, false,
-                                               false, 0, [-1])
-                            proofModel.updateLines()
-                            proofModel.updateRefs(insertIndex, true)
-                            listView.currentIndex = insertIndex
-                            cConnector.evalText = "Evaluate Proof"
-                            premiseCount = premiseCount + 1
+                            addPremise(index, listView)
                         }
                     }
                     Action {
-                        shortcut: "Ctrl+M"
-
                         text: "Add Conclusion"
                         enabled: index + 1 >= premiseCount
 
                         onTriggered: {
-                            theData.insertLine(index + 1, index + 2, "",
-                                               "choose", model.sub, false,
-                                               false, model.ind, [-1])
-                            proofModel.updateLines()
-                            proofModel.updateRefs(index + 1, true)
-                            listView.currentIndex = index + 1
-                            cConnector.evalText = "Evaluate Proof"
+                            addConclusion(index, listView, model)
                         }
                     }
 

@@ -52,6 +52,34 @@ ApplicationWindow {
         return item instanceof TextField
     }
 
+    // Function to add a Premise
+    function addPremise(index, listView) {
+        if (computePremise) {
+            computePremiseCount(listView)
+            computePremise = false
+        }
+        var insertIndex = (index < premiseCount) ? index + 1 : premiseCount
+        theData.insertLine(insertIndex, insertIndex + 1, "", "premise", false,
+                           false, false, 0, [-1])
+        proofModel.updateLines()
+        proofModel.updateRefs(insertIndex, true)
+        listView.currentIndex = insertIndex
+        cConnector.evalText = "Evaluate Proof"
+        premiseCount = premiseCount + 1
+    }
+
+    // Function to add a Conclusion
+    function addConclusion(index, listView, model) {
+        if (index + 1 < premiseCount)
+            return
+        theData.insertLine(index + 1, index + 2, "", "choose", model.sub,
+                           false, false, model.ind, [-1])
+        proofModel.updateLines()
+        proofModel.updateRefs(index + 1, true)
+        listView.currentIndex = index + 1
+        cConnector.evalText = "Evaluate Proof"
+    }
+
     width: 1200
     height: 700
     visible: true
